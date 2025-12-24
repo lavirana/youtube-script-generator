@@ -48,11 +48,26 @@ st.markdown("""
             color: white;
             box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
         }
-        ._hostedName_1upux_12 {
-            display: none !important;
+        /* 1. Hide the entire footer (Built with Streamlit) */
+        footer {visibility: hidden;}
+        footer:after {
+            content:'Developed for TheTechInfo.net'; 
+            visibility: visible;
+            display: block;
+            position: relative;
+            padding: 5px;
+            top: 2px;
         }
-        ._linkOutText_1upux_17 {
-            display: none !important;
+
+        /* 2. Hide the Top Header and Fullscreen button */
+        header {visibility: hidden;}
+        
+        /* 3. Hide the main menu (Hamburger icon) */
+        #MainMenu {visibility: hidden;}
+
+        /* 4. Optional: Remove padding at the top for a cleaner look */
+        .block-container {
+            padding-top: 1rem;
         }
     </style>
 """, unsafe_allow_html=True)
