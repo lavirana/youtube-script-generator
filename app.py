@@ -10,38 +10,48 @@ st.set_page_config(page_title="AI YouTube Script Generator", page_icon="🎥", l
 # --- CUSTOM CSS FOR THE CLEAN CARD LAYOUT ---
 st.markdown("""
     <style>
-        /* 1. Hide the Sidebar and the Toggle Button at the top left */
-        [data-testid="stSidebar"], [data-testid="stSidebarNav"], .st-emotion-cache-16idsys p {display: none;}
-        
-        /* 2. Hide the entire Streamlit Header (Hamburger & Fullscreen) */
-        header, [data-testid="stHeader"] {visibility: hidden; display: none;}
+        /* 1. COMPLETELY HIDE HEADER, FOOTER, AND TOOLBARS */
+        header, footer, .stGithubIcon, .st-emotion-cache-18ni7ap, .st-emotion-cache-1647z6l {
+            display: none !important;
+            visibility: hidden !important;
+            height: 0 !important;
+        }
 
-        /* 3. Hide the entire Footer container completely */
-        footer {visibility: hidden; height: 0%; position: absolute;}
-        [data-testid="stFooter"] {display: none;}
+        /* 2. HIDE THE RED LINE AT THE TOP AND DECORATION */
+        [data-testid="stHeader"], [data-testid="stDecoration"], [data-testid="stToolbar"] {
+            display: none !important;
+        }
 
-        /* 4. Hide the 'Status Widget' (The small lightning bolt/spinner) */
-        [data-testid="stStatusWidget"] {visibility: hidden; display: none;}
+        /* 3. HIDE THE FOOTER SPECIFICALLY */
+        [data-testid="stFooter"] {
+            display: none !important;
+        }
 
-        /* 5. Custom Page Styling */
-        .stApp { background-color: #f8f9fa; }
+        /* 4. CLEAN CARD UI STYLING */
+        .stApp {
+            background-color: #f8f9fa;
+        }
 
         .main .block-container {
             background-color: #ffffff;
-            padding: 40px;
+            padding: 3rem 2rem !important;
             border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            max-width: 700px;
-            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            max-width: 720px;
+            margin: auto;
             border: 1px solid #eee;
         }
 
-        /* 6. Professional Button */
+        /* 5. CUSTOM BUTTON */
         .stButton>button {
             width: 100%; border-radius: 12px; height: 3.5em; 
-            background-color: #e63946; color: white; font-weight: bold; border: none;
+            background-color: #e63946 !important; color: white !important; 
+            font-weight: bold; border: none !important;
         }
-        .stButton>button:hover { background-color: #d62828; color: white; }
+        .stButton>button:hover { 
+            background-color: #d62828 !important;
+            transform: translateY(-1px);
+        }
     </style>
 """, unsafe_allow_html=True)
 
