@@ -10,65 +10,38 @@ st.set_page_config(page_title="AI YouTube Script Generator", page_icon="🎥", l
 # --- CUSTOM CSS FOR THE CLEAN CARD LAYOUT ---
 st.markdown("""
     <style>
-        /* Hide default Streamlit elements */
-        [data-testid="stSidebar"] {display: none;}
-        footer {visibility: hidden;}
-        header {visibility: hidden;}
-        #MainMenu {visibility: hidden;}
+        /* 1. Hide the Sidebar and the Toggle Button at the top left */
+        [data-testid="stSidebar"], [data-testid="stSidebarNav"], .st-emotion-cache-16idsys p {display: none;}
+        
+        /* 2. Hide the entire Streamlit Header (Hamburger & Fullscreen) */
+        header, [data-testid="stHeader"] {visibility: hidden; display: none;}
 
-        /* Background color for the page */
-        .stApp {
-            background-color: #f8f9fa;
-        }
+        /* 3. Hide the entire Footer container completely */
+        footer {visibility: hidden; height: 0%; position: absolute;}
+        [data-testid="stFooter"] {display: none;}
 
-        /* Create the White Card Effect */
+        /* 4. Hide the 'Status Widget' (The small lightning bolt/spinner) */
+        [data-testid="stStatusWidget"] {visibility: hidden; display: none;}
+
+        /* 5. Custom Page Styling */
+        .stApp { background-color: #f8f9fa; }
+
         .main .block-container {
             background-color: #ffffff;
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             max-width: 700px;
-            margin-top: 50px;
+            margin-top: 20px;
             border: 1px solid #eee;
         }
 
-        /* Custom Red Button Style */
+        /* 6. Professional Button */
         .stButton>button {
-            width: 100%; 
-            border-radius: 12px; 
-            height: 3.5em; 
-            background-color: #e63946; 
-            color: white; 
-            font-weight: bold;
-            border: none;
-            transition: 0.3s;
+            width: 100%; border-radius: 12px; height: 3.5em; 
+            background-color: #e63946; color: white; font-weight: bold; border: none;
         }
-        .stButton>button:hover {
-            background-color: #d62828;
-            color: white;
-            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
-        }
-        /* 1. Hide the entire footer (Built with Streamlit) */
-        footer {visibility: hidden;}
-        footer:after {
-            content:'Developed for TheTechInfo.net'; 
-            visibility: visible;
-            display: block;
-            position: relative;
-            padding: 5px;
-            top: 2px;
-        }
-
-        /* 2. Hide the Top Header and Fullscreen button */
-        header {visibility: hidden;}
-        
-        /* 3. Hide the main menu (Hamburger icon) */
-        #MainMenu {visibility: hidden;}
-
-        /* 4. Optional: Remove padding at the top for a cleaner look */
-        .block-container {
-            padding-top: 1rem;
-        }
+        .stButton>button:hover { background-color: #d62828; color: white; }
     </style>
 """, unsafe_allow_html=True)
 
