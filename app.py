@@ -36,6 +36,15 @@ st.markdown("""
             background-color: #CC0000; 
             color: white;
         }
+    ._hostedName_1upux_12 {
+    display: none !important;
+}
+ ._linkOutText_1upux_17 {
+    display: none !important;
+}
+            ._container_1upux_1 {
+    background-color: white !important;
+            }
     </style>
 """, unsafe_allow_html=True)
 
