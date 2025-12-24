@@ -48,15 +48,12 @@ st.markdown("""
             color: white;
             box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
         }
-            ._hostedName_1upux_12 {
-    display: none !important;
-    margin-left: .75rem;
-}
-            ._linkOutText_1upux_17 {
-    display: none !important;
-    margin-right: 1rem;
-    font-weight: 600;
-}
+        ._hostedName_1upux_12 {
+            display: none !important;
+        }
+        ._linkOutText_1upux_17 {
+            display: none !important;
+        }
     </style>
 """, unsafe_allow_html=True)
 
