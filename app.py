@@ -60,6 +60,22 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+import streamlit as st
+
+# JavaScript to check the parent URL
+st.markdown("""
+<script>
+    // Check if the app is inside an iframe
+    if (window.self !== window.top) {
+        var parentUrl = document.referrer;
+        // Replace 'thetechinfo.net' with your actual domain
+        if (!parentUrl.includes("thetechinfo.net")) {
+            document.body.innerHTML = "<h1>Access Denied</h1><p>This tool is only authorized for use on TheTechInfo.net</p>";
+        }
+    }
+</script>
+""", unsafe_allow_html=True)
+
 # --- APP CONTENT ---
 st.markdown("<h1 style='text-align: center; color: #1d3557;'>🎥 YouTube Script Generator</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: #457b9d;'>Generate a professional, high-engagement script instantly!</p>", unsafe_allow_html=True)
