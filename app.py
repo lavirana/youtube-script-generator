@@ -8,30 +8,14 @@ GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
 st.set_page_config(page_title="AI YouTube Script Generator", page_icon="🎥", layout="centered")
 
 # --- CUSTOM CSS FOR THE CLEAN CARD LAYOUT ---
+# --- THE ULTIMATE FOOTER REMOVER ---
 st.markdown("""
     <style>
-        /* 1. COMPLETELY HIDE HEADER, FOOTER, AND TOOLBARS */
-        header, footer, .stGithubIcon, .st-emotion-cache-18ni7ap, .st-emotion-cache-1647z6l {
+        /* CSS Fallback */
+        header, footer, [data-testid="stHeader"], [data-testid="stFooter"], [data-testid="stToolbar"] {
             display: none !important;
             visibility: hidden !important;
-            height: 0 !important;
         }
-
-        /* 2. HIDE THE RED LINE AT THE TOP AND DECORATION */
-        [data-testid="stHeader"], [data-testid="stDecoration"], [data-testid="stToolbar"] {
-            display: none !important;
-        }
-
-        /* 3. HIDE THE FOOTER SPECIFICALLY */
-        [data-testid="stFooter"] {
-            display: none !important;
-        }
-
-        /* 4. CLEAN CARD UI STYLING */
-        .stApp {
-            background-color: #f8f9fa;
-        }
-
         .main .block-container {
             background-color: #ffffff;
             padding: 3rem 2rem !important;
@@ -41,18 +25,32 @@ st.markdown("""
             margin: auto;
             border: 1px solid #eee;
         }
-
-        /* 5. CUSTOM BUTTON */
-        .stButton>button {
-            width: 100%; border-radius: 12px; height: 3.5em; 
-            background-color: #e63946 !important; color: white !important; 
-            font-weight: bold; border: none !important;
-        }
-        .stButton>button:hover { 
-            background-color: #d62828 !important;
-            transform: translateY(-1px);
-        }
+        .stApp { background-color: #f8f9fa; }
     </style>
+
+    <script>
+        function removeElements() {
+            // Target the footer and the specific "Built with Streamlit" link
+            const footer = document.querySelector('footer');
+            const toolbar = document.querySelector('[data-testid="stToolbar"]');
+            const decoration = document.querySelector('[data-testid="stDecoration"]');
+            
+            if (footer) footer.remove();
+            if (toolbar) toolbar.remove();
+            if (decoration) decoration.remove();
+            
+            // Look for any div containing "Built with" and hide it
+            const divs = document.getElementsByTagName('div');
+            for (let i = 0; i < divs.length; i++) {
+                if (divs[i].innerText && divs[i].innerText.includes('Built with')) {
+                    divs[i].style.display = 'none';
+                }
+            }
+        }
+
+        // Run immediately and then every 500ms to catch late-loading elements
+        setInterval(removeElements, 500);
+    </script>
 """, unsafe_allow_html=True)
 
 import streamlit as st
