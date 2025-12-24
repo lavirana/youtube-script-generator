@@ -1,26 +1,27 @@
 import streamlit as st
 from groq import Groq
 
-# 1. HARDCODE YOUR API KEY
-GROQ_API_KEY = "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"
+# 1. Connect to the Secret Key you added in Streamlit Cloud
+GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
 
+# Page Configuration
 st.set_page_config(page_title="AI YouTube Script Generator", page_icon="🎥", layout="centered")
 
-# --- CUSTOM CSS FOR CLEAN CARD LAYOUT ---
+# --- CUSTOM CSS FOR THE CLEAN CARD LAYOUT ---
 st.markdown("""
     <style>
-        /* 1. Hide default Streamlit elements */
+        /* Hide default Streamlit elements */
         [data-testid="stSidebar"] {display: none;}
         footer {visibility: hidden;}
         header {visibility: hidden;}
         #MainMenu {visibility: hidden;}
 
-        /* 2. Change background to a light grey for contrast */
+        /* Background color for the page */
         .stApp {
             background-color: #f8f9fa;
         }
 
-        /* 3. Create the White Card Effect */
+        /* Create the White Card Effect */
         .main .block-container {
             background-color: #ffffff;
             padding: 40px;
@@ -31,12 +32,7 @@ st.markdown("""
             border: 1px solid #eee;
         }
 
-        /* 4. Style the Input Fields */
-        .stTextInput input, .stSelectbox div[data-baseweb="select"] {
-            border-radius: 10px !important;
-        }
-
-        /* 5. Custom Red Button */
+        /* Custom Red Button Style */
         .stButton>button {
             width: 100%; 
             border-radius: 12px; 
@@ -49,36 +45,60 @@ st.markdown("""
         }
         .stButton>button:hover {
             background-color: #d62828;
+            color: white;
             box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
         }
-                ._hostedName_1upux_12 {
-    display: none !important;
-}
- ._linkOutText_1upux_17 {
-    display: none !important;
-}
-            ._container_1upux_1 {
-    background-color: white !important;
-            }
     </style>
 """, unsafe_allow_html=True)
 
 # --- APP CONTENT ---
 st.markdown("<h1 style='text-align: center; color: #1d3557;'>🎥 YouTube Script Generator</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #457b9d;'>Enter your topic below to generate a high-engagement script.</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #457b9d;'>Generate a professional, high-engagement script instantly!</p>", unsafe_allow_html=True)
 
-# Layout using columns for a tighter feel
-topic = st.text_input("What is your video about?", placeholder="e.g. 5 Best AI Tools for Students")
+# Input Section
+topic = st.text_input("Video Topic:", placeholder="e.g. How to learn Artificial Intelligence in 2025")
 
 col1, col2 = st.columns(2)
 with col1:
-    tone = st.selectbox("Video Tone", ["Informative", "Funny", "Professional", "Storytelling"])
+    tone = st.selectbox("Choose Tone:", ["Informative", "Funny", "Professional", "Storytelling", "Energetic"])
 with col2:
-    video_length = st.slider("Length (Min)", 1, 15, 5)
+    video_length = st.slider("Target Length (Min):", 1, 15, 5)
 
-if st.button("Generate Professional Script"):
-    # (Existing Groq logic here...)
-    pass
+# --- GENERATION LOGIC ---
+if st.button("Generate Script 🚀"):
+    if not topic:
+        st.warning("Please enter a topic first!")
+    else:
+        try:
+            # Initialize Groq with the Secret Key
+            client = Groq(api_key=GROQ_API_KEY)
+            
+            prompt = f"""
+            Act as an expert YouTube Content Creator. Write a comprehensive video script in English.
+            Topic: {topic}
+            Tone: {tone}
+            Estimated Video Duration: {video_length} minutes.
+            Include: A catchy Hook, Introduction, Key Chapters/Points, a Call to Action, and an Outro.
+            """
 
+            with st.spinner("AI is crafting your script..."):
+                completion = client.chat.completions.create(
+                    model="llama-3.3-70b-versatile",
+                    messages=[{"role": "user", "content": prompt}],
+                    temperature=0.7,
+                )
+                
+                script = completion.choices[0].message.content
+                st.success("Your Script is Ready!")
+                st.markdown("---")
+                st.markdown(script)
+                
+        except Exception as e:
+            if "429" in str(e):
+                st.error("⚠️ Server Busy: Please wait 60 seconds and try again.")
+            else:
+                st.error(f"Something went wrong: {e}")
+
+# Footer
 st.markdown("---")
-#st.markdown("<p style='text-align: center; font-size: 0.8em; color: gray;'>Powered by <b>TheTechInfo.net</b></p>", unsafe_allow_html=True)
+# st.markdown("<p style='text-align: center; font-size: 0.8em; color: gray;'>Developed for <b>TheTechInfo.net</b></p>", unsafe_allow_html=True)
