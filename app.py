@@ -83,7 +83,7 @@ with col2:
     video_length = st.slider("Target Length (Min):", 1, 15, 5)
 
 # --- GENERATION LOGIC ---
-if st.button("Generate Script 🚀"):
+if st.button("Generate Script"):
     if not topic:
         st.warning("Please enter a topic first!")
     else:
